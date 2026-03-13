@@ -25,7 +25,7 @@ public class OpenApiConfig {
                                 .name("MTIT Team")
                                 .email("team@mtit.com")))
                 .servers(List.of(
-                        new Server().url("http://localhost:8080").description("Local Development")
+                        new Server().url("http://localhost:8888").description("Local Development")
                 ))
                 .components(new Components()
                         .addSecuritySchemes("Bearer Auth", new SecurityScheme()

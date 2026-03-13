@@ -1,8 +1,10 @@
 package com.mtit.app.controller;
 
 import com.mtit.app.dto.intake.*;
+import com.mtit.app.model.Customer;
 import com.mtit.app.model.ServicePart;
 import com.mtit.app.model.ServiceRecord;
+import com.mtit.app.model.Vehicle;
 import com.mtit.app.service.ServiceRecordService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -68,10 +70,32 @@ public class ServiceRecordController {
                 .map(this::toPartResponse)
                 .collect(Collectors.toList());
 
+        Vehicle v = r.getVehicle();
+        Customer c = (v != null) ? v.getCustomer() : null;
+
         return IntakeFormResponse.builder()
                 .serviceRecordId(r.getId())
                 .workOrderNumber(r.getWorkOrderNumber())
                 .intakeTimestamp(r.getIntakeTimestamp())
+                .customer(c != null ? com.mtit.app.dto.intake.CustomerResponse.builder()
+                        .id(c.getId())
+                        .fullName(c.getFullName())
+                        .nicNumber(c.getNicNumber())
+                        .primaryContact(c.getPrimaryContact())
+                        .email(c.getEmail())
+                        .city(c.getCity())
+                        .customerType(c.getCustomerType())
+                        .build() : null)
+                .vehicle(v != null ? com.mtit.app.dto.intake.VehicleResponse.builder()
+                        .id(v.getId())
+                        .vehicleName(v.getVehicleName())
+                        .registrationNumber(v.getRegistrationNumber())
+                        .brand(v.getBrand())
+                        .model(v.getModel())
+                        .vehicleType(v.getVehicleType())
+                        .fuelType(v.getFuelType())
+                        .mileage(v.getMileage())
+                        .build() : null)
                 .service(ServiceDetailsResponse.builder()
                         .serviceType(r.getServiceType())
                         .servicePriority(r.getServicePriority())

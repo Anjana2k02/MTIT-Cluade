@@ -8,7 +8,7 @@ function MainLayout({ children }) {
     <div className="app-container">
       <header className="app-header">
         <div className="header-left">
-          <h1><Link to="/" className="header-logo-link">MTIT App</Link></h1>
+          <h1><Link to="/" className="header-logo-link">Vehical service | Claude</Link></h1>
           {isAuthenticated && (
             <nav className="header-nav">
               <Link to="/" className="nav-link">Home</Link>
